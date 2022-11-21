@@ -25,9 +25,9 @@ namespace WebApiEjercicio
             HttpConfiguration config = new HttpConfiguration();
 
             //registrar api controllers en la ejecucion asembly
-            //builder.RegisterApiControllers(typeof(Startup).Assembly);
+            builder.RegisterApiControllers(typeof(Startup).Assembly);
             //Register your Web API controllers.  
-            builder.RegisterApiControllers(System.Reflection.Assembly.GetExecutingAssembly());
+          
 
             builder.RegisterWebApiFilterProvider(config);
 

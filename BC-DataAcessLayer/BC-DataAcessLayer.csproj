@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComputerDAL.cs" />
     <Compile Include="PhoneDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -63,6 +64,10 @@
     <ProjectReference Include="..\BC-Entities\BC-Entities.csproj">
       <Project>{f71472c6-426a-48a3-a864-7b8e3eb90398}</Project>
       <Name>BC-Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Enums\Enums.csproj">
+      <Project>{0F9B10DA-D6C3-4AA0-819B-C43E7D2BB0A8}</Project>
+      <Name>Enums</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

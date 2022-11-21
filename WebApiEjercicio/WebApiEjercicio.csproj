@@ -245,6 +245,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Config\ConfigServices.cs" />
+    <Compile Include="Controllers\ComputerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PhonesController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />

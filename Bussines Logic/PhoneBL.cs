@@ -15,17 +15,13 @@ namespace Bussines_Logic
         private readonly IMessageSender _EmailSender;
         private readonly IMessageSender _TextMessageSender;
         private readonly PhoneDAL _PhoneDal;
-        public PhoneBL()
-        {
-            _PhoneDal = new PhoneDAL();
-        }
 
-       /** public PhoneBL(PhoneDAL PhoneDal, IMessageSender EmailSender, IMessageSender TextMessageSender)
+        public PhoneBL(PhoneDAL PhoneDal, IMessageSender EmailSender, IMessageSender TextMessageSender)
         {
             _PhoneDal = PhoneDal;
             _EmailSender = EmailSender;
             _TextMessageSender = TextMessageSender;
-        }**/
+        }
        public IReadOnlyList<Phone> GetPhones()
         {
             return _PhoneDal.GetPhones();

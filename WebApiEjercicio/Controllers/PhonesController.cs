@@ -22,17 +22,13 @@ namespace WebApiEjercicio.Controllers
         private readonly IMessageSender _EmailSender;
         private readonly IMessageSender _TextMessageSender;
 
-        public PhonesController()
-        {
-            _PhoneBL = new PhoneBL();
-        }
+    
 
-        /**public PhonesController(PhoneBL PhoneBL, IMessageSender EmailSender, IMessageSender TextMessageSender)
+        public PhonesController(PhoneBL PhoneBL)
         {
             _PhoneBL = PhoneBL;
-            _EmailSender = EmailSender;
-            _TextMessageSender = TextMessageSender;
-        }**/
+         
+        }
 
 
        
@@ -68,18 +64,12 @@ namespace WebApiEjercicio.Controllers
             return _PhoneBL.GetPhoneOrderByYear();
         }
 
-
-
-
-
-
-
-
-        
-        /*public String SendMessageEmail(Guid id)
+        [HttpGet]
+        [Route("sendEmail")]
+        public String SendMessageEmail(Guid id)
         {
             return _PhoneBL.SendMessageEmail(id); 
-        }*/
+        }
     }
 }
 
