@@ -76,6 +76,10 @@
       <Project>{f71472c6-426a-48a3-a864-7b8e3eb90398}</Project>
       <Name>BC-Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DTOs\DTOs.csproj">
+      <Project>{66DD59B5-6AE6-4269-92AD-519CABCAB41D}</Project>
+      <Name>DTOs</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

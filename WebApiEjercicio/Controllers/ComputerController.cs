@@ -1,5 +1,6 @@
 ﻿using BC_Entities;
 using Bussines_Logic;
+using DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,41 +17,32 @@ namespace WebApiEjercicio.Controllers
 
         [HttpGet]
         [Route("Computers")]
-        public IEnumerable<Computer> Get()
+        public List<Computer> Get()
         {
-            return _ComputerBL.GetPhones();
-        }
-
-        // GET: api/Computer/5
-        [HttpGet]
-        [Route("Computers/{id}")]
-        public Computer Get(Guid id)
-        {
-            return _ComputerBL.GetComputerByID(id);
+            return _ComputerBL.GetComputers();
         }
 
         // POST: api/Computerc
         [HttpPost]
         [Route("Computers/create")]
-        public Computer Post([FromBody]Computer computer)
+        public IHttpActionResult Post([FromBody]ComputerDTO computerDTO)
         {
-            return _ComputerBL.SaveComputer(computer);
+            return Ok(_ComputerBL.SaveComputer(computerDTO));
         }
 
-        // PUT: api/Computer/5
         [HttpPut]
         [Route("Computers/edit")]
-        public bool Put(Guid id, [FromBody]Computer computer)
+        public IHttpActionResult Put(string id, [FromBody]ComputerDTO computer)
         {
-           return _ComputerBL.UpdateComputer(id, computer);
+           return Ok( _ComputerBL.UpdateComputer(id, computer));
         }
 
         // DELETE: api/Computer/5
         [HttpDelete]
         [Route("Computers/delete")]
-        public bool Delete(Guid id)
+        public IHttpActionResult Delete(string id)
         {
-            return _ComputerBL.RemoveComputer(id);
+            return Ok(_ComputerBL.RemoveComputer(id));
         }
     }
 }

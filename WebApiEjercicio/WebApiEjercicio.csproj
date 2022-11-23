@@ -382,6 +382,14 @@
       <Project>{3026010a-ad20-45ef-a24d-d66ca7c0a517}</Project>
       <Name>BC-BussinesLogic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DTOs\DTOs.csproj">
+      <Project>{66DD59B5-6AE6-4269-92AD-519CABCAB41D}</Project>
+      <Name>DTOs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Enums\Enums.csproj">
+      <Project>{0F9B10DA-D6C3-4AA0-819B-C43E7D2BB0A8}</Project>
+      <Name>Enums</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

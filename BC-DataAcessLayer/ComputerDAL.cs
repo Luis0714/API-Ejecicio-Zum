@@ -1,20 +1,28 @@
 ﻿using BC_Entities;
+using Dapper;
+using DTOs;
 using Enums;
 using Microsoft.Build.Tasks.Deployment.Bootstrapper;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BC_DataAcessLayer
 {
     public class ComputerDAL
     {
+        /*
         private static List<Computer> _Computers = new List<Computer>()
         {
             new Computer("HP","JKNG-453",2022,"ROJO",4,8,"AMD Ryzen 5",TypeDisc.SSD,600,TypeComputer.DESK),
             new Computer("ACER","RTYY-456",2022,"GRIS",4,8,"AMD Ryzen 3",TypeDisc.HDD,400,TypeComputer.LAPTOP),
             new Computer("APPLE","RTYY-233",2022,"VERDE",4,8,"INTEL I7",TypeDisc.SSD,300,TypeComputer.LAPTOP)
         };
+        */
+        //private Computer computerP = new Computer("APPLE", "RTYY-233", 2022, "VERDE", 4, 8, "INTEL I7", (int)TypeDisc.SSD, 300, (int)TypeComputer.LAPTOP);
+
 
         private readonly string _connectionString;
 
@@ -24,57 +32,79 @@ namespace BC_DataAcessLayer
         
         }
 
-        private async void unre()
+        private Computer Insert(Computer computer)
         {
-            var connection = new System.Data.SqlClient.SqlConnection(_connectionString);
+            var sql = @"INSERT INTO Computers (
+            Id,
+            Brand,
+            Modelo,
+            RealeseYear,
+            Color,
+            DefaultCapacity,
+            MaxCapacity,
+            Processor,
+            TypeDisc,
+            DiscCapacity,
+            TypeComputer ) 
+            VALUES (
+            @Id,
+            @Brand,
+            @Modelo,
+            @RealeseYear,
+            @Color,
+            @DefaultCapacity,
+            @MaxCapacity,
+            @Processor,
+            @TypeDisc,
+            @DiscCapacity,
+            @TypeComputer )";
 
-            var sql = @"INSERT INTO Products ( _Id,
-            _Brand,
-            _Modelo,
-            _RealeseYear,
-            _Color,
-            _DefaultCapacity,
-            _MaxCapacity,
-            _Processor,
-            _TypeDisc,
-            _DiscCapacity,
-            _TypeComputer ) 
-                            VALUES (@_Id,
-            @_Brand,
-           @_Modelo,
-            @_RealeseYear,
-            @_Color,
-            @_DefaultCapacity,
-            @_MaxCapacity,
-            @_Processor,
-            @_TypeDisc,
-            @_DiscCapacity,
-            @_TypeComputer )";
-
-            //var affectedRows = await connection(sql, new Computer("HP", "SHP-233", 2022, "Gris", 4, 8, "AMD Ryzen 3", TypeDisc.SSD, 500, TypeComputer.LAPTOP));//new{Id=product.Id, Title=product.Title...}
-            //return affectedRows;
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Execute(sql, computer);
+                var Listcomputer = GetComputers();
+                Computer compute = Listcomputer.FirstOrDefault(C => C.Id.Trim() == computer.Id.Trim());
+                return compute;
+            }
         }
+
+
        
 
-        public List<Computer> GetPhones()
+        public List<Computer> GetComputers()
         {
-            return _Computers;
+            var sql = "SELECT Id, Brand,Modelo,RealeseYear,Color,DefaultCapacity,MaxCapacity,Processor,TypeDisc,DiscCapacity,TypeComputer FROM Computers";
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var computers = connection.Query<Computer>(sql).ToList();
+                return computers; 
+            }
         }
 
         public Computer SaveComputer(Computer computer)
         {
-            _Computers.Add(computer);
-            return _Computers.FirstOrDefault(c => c._Id == computer._Id);
+           return this.Insert(computer);
         }
 
-        public Computer GetComputerByID(Guid id)
+       
+        public bool RemoveComputer(string id)
         {
-            return _Computers.FirstOrDefault(C => C._Id == id);
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var sql = @"DELETE FROM Computers WHERE Id=@id";
+                var affectedRows =  connection.Execute(sql, new { Id = id });
+                return affectedRows > 0;
+            }
         }
-        
-        public bool RemoveComputer(Computer computer)
+
+        public async Task<bool> UpdateComputerAsync(string id, Computer computer)
         {
-            return _Computers.Remove(computer);
+            var sql = @"UPDATE FROM Computers SET Id=@Id,Brand=@Brand,Modelo = @Modelo,RealeseYear = @RealeseYear,Color = @Color,DefaultCapacity = @DefaultCapacity,MaxCapacity = @MaxCapacity,Processor=@Processor,TypeDisc=@TypeDisc,DiscCapacity= @DiscCapacity,TypeComputer = @TypeComputer WHERE Id = @id";
+            using (var connection = new SqlConnection(_connectionString)) { 
+
+            var affectedRows = await connection.ExecuteAsync(sql, new Computer(computer.Id, computer.Brand, computer.Modelo, computer.RealeseYear, computer.Color, computer.DefaultCapacity,computer.MaxCapacity, computer.Processor,computer.TypeDisc, computer.DiscCapacity, computer.TypeComputer));//new{Id=product.Id, Title=product.Title...}
+            return affectedRows > 0;
+        }
         }
     }
 }

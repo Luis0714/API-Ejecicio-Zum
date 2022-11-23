@@ -36,7 +36,7 @@ namespace WebApiEjercicio
 
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
-            GlobalConfiguration.Configuration.DependencyResolver = config.DependencyResolver;
+            //GlobalConfiguration.Configuration.DependencyResolver = config.DependencyResolver;
 
             app.UseAutofacMiddleware(container);
 

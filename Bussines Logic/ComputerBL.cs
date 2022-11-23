@@ -1,5 +1,6 @@
 ﻿using BC_DataAcessLayer;
 using BC_Entities;
+using DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,33 +18,30 @@ namespace Bussines_Logic
             _ComputerDAL = new ComputerDAL();
         }
 
-        public List<Computer> GetPhones()
+        public List<Computer> GetComputers()
         {
-            return _ComputerDAL.GetPhones();
+            return _ComputerDAL.GetComputers();
         }
 
-        public Computer SaveComputer(Computer computer)
+        public Computer SaveComputer(ComputerDTO DTO)
         {
+            Computer computer = new Computer(DTO.Id,DTO.Brand, DTO.Modelo, DTO.RealeseYear, DTO.Color, DTO.DefaultCapacity, DTO.MaxCapacity, DTO.Processor,
+                DTO.TypeDisc, DTO.DiscCapacity, DTO.TypeComputer);
             return _ComputerDAL.SaveComputer(computer);
         }
+       
 
-        public Computer GetComputerByID(Guid id)
+        public bool UpdateComputer(string id ,ComputerDTO DTO)
         {
-            return _ComputerDAL.GetComputerByID(id);
+            Computer compute = new Computer(DTO.Id,DTO.Brand, DTO.Modelo, DTO.RealeseYear, DTO.Color, DTO.DefaultCapacity, DTO.MaxCapacity, DTO.Processor,
+                DTO.TypeDisc, DTO.DiscCapacity, DTO.TypeComputer);
+
+            return _ComputerDAL.UpdateComputerAsync(id,compute).Result;
         }
 
-        public bool UpdateComputer(Guid id ,Computer computer)
-        {
-            var computerToUpdate = _ComputerDAL.GetComputerByID(id);
-            _ComputerDAL.RemoveComputer(computerToUpdate);
-            computerToUpdate = computer;
-            return  _ComputerDAL.SaveComputer(computerToUpdate) != null;
-        }
-
-        public bool RemoveComputer(Guid id)
-        {
-            var computerToRemove = _ComputerDAL.GetComputerByID(id);
-            return _ComputerDAL.RemoveComputer(computerToRemove);
+        public bool RemoveComputer(string id)
+        {   
+            return _ComputerDAL.RemoveComputer(id);
         }
     }
 }
