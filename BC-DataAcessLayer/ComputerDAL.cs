@@ -97,15 +97,18 @@ namespace BC_DataAcessLayer
             }
         }
 
-        public async Task<bool> UpdateComputerAsync(string id, Computer computer)
+        public async Task<bool> UpdateComputerAsync(string Id, Computer computer)
         {
-            var sql = @"UPDATE FROM Computers SET Id=@Id,Brand=@Brand,Modelo = @Modelo,RealeseYear = @RealeseYear,Color = @Color,DefaultCapacity = @DefaultCapacity,MaxCapacity = @MaxCapacity,Processor=@Processor,TypeDisc=@TypeDisc,DiscCapacity= @DiscCapacity,TypeComputer = @TypeComputer WHERE Id = @id";
-            using (var connection = new SqlConnection(_connectionString)) { 
+            // var sql = @"UPDATE Computers SET Id=@Id,Brand=@Brand, Modelo=@Modelo, RealeseYear=@RealeseYear, Color=@Color, DefaultCapacity=@DefaultCapacity, MaxCapacity=@MaxCapacity, Processor=@Processor, TypeDisc=@TypeDisc, DiscCapacity=@DiscCapacity, TypeComputer=@TypeComputer WHERE Id = @ID";
+            // using (var connection = new SqlConnection(_connectionString)) {
 
-            var affectedRows = await connection.ExecuteAsync(sql, new Computer(computer.Id, computer.Brand, computer.Modelo, computer.RealeseYear, computer.Color, computer.DefaultCapacity,computer.MaxCapacity, computer.Processor,computer.TypeDisc, computer.DiscCapacity, computer.TypeComputer));//new{Id=product.Id, Title=product.Title...}
-            return affectedRows > 0;
+            //var affectedRows = await connection.ExecuteAsync(sql, new Computer(computer.Id, computer.Brand, computer.Modelo, computer.RealeseYear, computer.Color, computer.DefaultCapacity,computer.MaxCapacity, computer.Processor,computer.TypeDisc, computer.DiscCapacity, computer.TypeComputer));//new{Id=product.Id, Title=product.Title...}
+            //return affectedRows != null;
+            bool remove =this.RemoveComputer(Id);
+            computer.Id = Id;
+            return remove && this.SaveComputer(computer) != null;
         }
         }
     }
-}
+
 
