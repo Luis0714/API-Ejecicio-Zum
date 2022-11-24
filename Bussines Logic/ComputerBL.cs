@@ -31,12 +31,12 @@ namespace Bussines_Logic
         }
        
 
-        public bool UpdateComputer(string id ,ComputerDTO DTO)
+        public bool UpdateComputer(ComputerDTO DTO)
         {
             Computer compute = new Computer(DTO.Id,DTO.Brand, DTO.Modelo, DTO.RealeseYear, DTO.Color, DTO.DefaultCapacity, DTO.MaxCapacity, DTO.Processor,
                 DTO.TypeDisc, DTO.DiscCapacity, DTO.TypeComputer);
 
-            return _ComputerDAL.UpdateComputerAsync(id,compute).Result;
+            return _ComputerDAL.UpdateComputerAsync(compute);
         }
 
         public bool RemoveComputer(string id)

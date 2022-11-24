@@ -1,15 +1,18 @@
 ﻿using BC_Entities;
 using Bussines_Logic;
 using DTOs;
+using Microsoft.AspNetCore.Cors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace WebApiEjercicio.Controllers
 {
+    [System.Web.Http.Cors.EnableCors(origins: "http://127.0.0.1:5501", headers: "*", methods: "*", SupportsCredentials = true)]
     public class ComputerController : ApiController
     {
         ComputerBL _ComputerBL = new ComputerBL();
@@ -17,6 +20,7 @@ namespace WebApiEjercicio.Controllers
 
         [HttpGet]
         [Route("Computers")]
+        
         public List<Computer> Get()
         {
             return _ComputerBL.GetComputers();
@@ -32,9 +36,9 @@ namespace WebApiEjercicio.Controllers
 
         [HttpPut]
         [Route("Computers/edit")]
-        public IHttpActionResult Put(string id, [FromBody]ComputerDTO computer)
+        public IHttpActionResult Put([FromBody]ComputerDTO computer)
         {
-           return Ok( _ComputerBL.UpdateComputer(id, computer));
+           return Ok( _ComputerBL.UpdateComputer(computer));
         }
 
         // DELETE: api/Computer/5
