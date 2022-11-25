@@ -13,23 +13,11 @@ namespace BC_DataAcessLayer
 {
     public class ComputerDAL
     {
-        /*
-        private static List<Computer> _Computers = new List<Computer>()
-        {
-            new Computer("HP","JKNG-453",2022,"ROJO",4,8,"AMD Ryzen 5",TypeDisc.SSD,600,TypeComputer.DESK),
-            new Computer("ACER","RTYY-456",2022,"GRIS",4,8,"AMD Ryzen 3",TypeDisc.HDD,400,TypeComputer.LAPTOP),
-            new Computer("APPLE","RTYY-233",2022,"VERDE",4,8,"INTEL I7",TypeDisc.SSD,300,TypeComputer.LAPTOP)
-        };
-        */
-        //private Computer computerP = new Computer("APPLE", "RTYY-233", 2022, "VERDE", 4, 8, "INTEL I7", (int)TypeDisc.SSD, 300, (int)TypeComputer.LAPTOP);
-
-
         private readonly string _connectionString;
 
         public ComputerDAL()
         {
             _connectionString = "Data Source=localhost;Database=ComputersDB;Integrated Security=True";
-
         }
 
         private Computer Insert(Computer computer)
@@ -97,7 +85,7 @@ namespace BC_DataAcessLayer
             }
         }
 
-        public  bool UpdateComputerAsync(Computer computer)
+        public  bool UpdateComputer(Computer computer)
         {
             var sql = @"UPDATE Computers SET Brand=@Brand, Modelo=@Modelo, RealeseYear=@RealeseYear, Color=@Color, DefaultCapacity=@DefaultCapacity, MaxCapacity=@MaxCapacity, Processor=@Processor, TypeDisc=@TypeDisc, DiscCapacity=@DiscCapacity, TypeComputer=@TypeComputer WHERE Id = @Id";
             using (var connection = new SqlConnection(_connectionString)) {

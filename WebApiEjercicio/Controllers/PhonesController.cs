@@ -19,19 +19,19 @@ namespace WebApiEjercicio.Controllers
     public class PhonesController : ApiController 
     {
         private readonly PhoneBL _PhoneBL;
-        private readonly IMessageSender _EmailSender;
-        private readonly IMessageSender _TextMessageSender;
+        //  private readonly IMessageSender _EmailSender;
+        // private readonly IMessageSender _TextMessageSender;
 
-    
 
+        /*
         public PhonesController(PhoneBL PhoneBL)
         {
-            _PhoneBL = PhoneBL;
-         
+            //_PhoneBL = PhoneBL;
+        
         }
+        */
+      
 
-
-       
         // GET: api/Phones/5
         [ResponseType(typeof(Phone))]
         public IHttpActionResult GetPhone(Guid id)

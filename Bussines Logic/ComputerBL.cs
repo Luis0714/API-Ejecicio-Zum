@@ -12,12 +12,16 @@ namespace Bussines_Logic
     public class ComputerBL
     {
         private readonly ComputerDAL _ComputerDAL;
-
+        /*
+        public ComputerBL(ComputerDAL computerDAL)
+        {
+            _ComputerDAL = computerDAL;
+        }
+        */
         public ComputerBL()
         {
             _ComputerDAL = new ComputerDAL();
         }
-
         public List<Computer> GetComputers()
         {
             return _ComputerDAL.GetComputers();
@@ -31,12 +35,11 @@ namespace Bussines_Logic
         }
        
 
-        public bool UpdateComputer(ComputerDTO DTO)
+        public bool UpdateComputer(ComputerDTOPUT DTO)
         {
             Computer compute = new Computer(DTO.Id,DTO.Brand, DTO.Modelo, DTO.RealeseYear, DTO.Color, DTO.DefaultCapacity, DTO.MaxCapacity, DTO.Processor,
                 DTO.TypeDisc, DTO.DiscCapacity, DTO.TypeComputer);
-
-            return _ComputerDAL.UpdateComputerAsync(compute);
+            return _ComputerDAL.UpdateComputer(compute);
         }
 
         public bool RemoveComputer(string id)

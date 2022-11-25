@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
+using BC_DataAcessLayer;
 using BC_Entities;
 using Microsoft.Owin;
 using Owin;
@@ -21,20 +22,24 @@ namespace WebApiEjercicio
             HttpConfiguration config = new HttpConfiguration();
             // Register Web API controller in executing assembly.
 
-            builder.RegisterApiControllers(typeof(Startup).Assembly);
-            builder.RegisterWebApiFilterProvider(config);
+           // builder.RegisterApiControllers(typeof(Startup).Assembly);
+           // builder.RegisterWebApiFilterProvider(config);
 
             //Registrar dependencias
             builder.RegisterType<Computer>();
+            builder.RegisterType<ComputerDAL>();
+           // builder.RegisterType<ComputerBL>();
 
             //Construir el contenedor
             container = builder.Build();
 
-            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+           // config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
             GlobalConfiguration.Configuration.DependencyResolver = config.DependencyResolver;
             app.UseAutofacMiddleware(container);
             app.UseAutofacWebApi(config);
             app.UseWebApi(config);
+
+            //owin startup not firing
         }
     }
 }
